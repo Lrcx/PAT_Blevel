@@ -1,44 +1,29 @@
-package lowlevel;
+package levelB;
 
-import java.util.*;
-//程序没毛病，但是运行超时
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 public class I032 {
-	public static void main(String[] args) {
-		Scanner s=new Scanner(System.in);
-		ArrayList<Integer> list=new ArrayList<Integer>();
-		int n=s.nextInt();
-		int[] arr=new int[2*n];
-		for(int i=0;i<2*n;i++) {
-			arr[i]=s.nextInt();
-		}
-		list.add(arr[0]);
-		for(int i=2;i<arr.length;i+=2) {
-			boolean flag=true;
-			for(int j=0;j<list.size();j++) {
-				if(arr[i]==list.get(j)) {
-					flag=false;
-					break;
-				}
-			}
-			if(flag==true) {
-				list.add(arr[i]);
-			}
-		}
-		int sum=0;
-		int t=0;
-		int num=0;
-		for(int i=0;i<list.size();i++) {
-			for(int m=0;m<arr.length;m+=2) {
-				if(arr[m]==list.get(i)) {
-					sum=sum+arr[m+1];
-				}
-			}
-			if(sum>t) {
-				t=sum;
-				num=list.get(i);
-			}
-			sum=0;
-		}
-		System.out.print(num+" "+t);
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int N=Integer.parseInt(br.readLine());
+        int score[]=new int[N+1],id,fen;
+        String[] str;
+        for(int i=0;i<N;i++){
+            str=br.readLine().split(" ");
+            id=Integer.parseInt(str[0]);
+            fen=Integer.parseInt(str[1]);
+            score[id]+=fen;
+        }
+        br.close();
+        int max_score=score[1],index=1;
+        for(int i=2;i<=N;i++){
+            if(max_score<score[i]){
+                max_score=score[i];
+                index=i;
+            }
+        }
+
+        System.out.print(index+" "+max_score);
+    }
 }

@@ -1,32 +1,32 @@
-package lowlevel;
+package levelB;
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class I030 {
-	public static void main(String[] args) {
-		Scanner s=new Scanner(System.in);
-		ArrayList<Integer> list=new ArrayList<Integer>();
-		int count=s.nextInt();//输入数列的个数
-		int p=s.nextInt(); //参数P
-		int[] a=new int[count];		
-		for(int i=0;i<count;i++) {
-			a[i]=s.nextInt();
-		}
-		Arrays.sort(a);
-		int value=0;
-		int value_=0;
-		for(int i=0;i<a.length;i++) {
-			value_++;
-			for(int j=i+value;j<a.length;j++) {
-				if(a[j]>a[i]*p) {
-					break;
-				}
-				value++;
-			}
-			if(a.length-value_<=value) {
-				break;
-			}
-		}
-		System.out.println(value);
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        String[] str=br.readLine().split(" ");
+        int N=Integer.parseInt(str[0]);
+        long p=Long.parseLong(str[1]);
+        String[] st=br.readLine().split(" ");
+        long nums[]=new long[N];
+        for(int i=0;i<N;i++){
+            nums[i]=Long.parseLong(st[i]);
+        }
+        Arrays.sort(nums);
+        int max=0,result=0;
+        for(int i=0;i<N;i++){
+            for(int j=i+max;j<N;j++){
+                if(nums[j]<=nums[i]*p){
+                    result=j-i+1;
+                    if(max<result)
+                        max=result;
+                }else
+                    break;
+            }
+        }
+        System.out.print(max);
+    }
 }

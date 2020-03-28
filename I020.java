@@ -1,66 +1,55 @@
-package lowlevel;
+package levelB;
 
-import java.text.DecimalFormat;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class I020 {
-	public static void main(String[] args) {
-		Scanner s=new Scanner(System.in);
-		ArrayList<Integer> list=new ArrayList<Integer>();
-		DecimalFormat df=new DecimalFormat("#.00");
-		int N=s.nextInt();//ÔÂ±ýµÄÖÖÀàÊý
-		int D=s.nextInt();//ÊÐ³¡µÄ×î´óÐèÇóÁ¿
-		int counts[]=new int[N];//¿â´æ			3 20
-		int sales[]=new int[N];//×ÜÊÛ¼Û			18 15 10
-		for(int i=0;i<N;i++) {//				75 72 45
-			counts[i]=s.nextInt();
-		}
-		for(int i=0;i<N;i++) {
-			sales[i]=s.nextInt();
-		}
-		double singlePrice[]=new double[N];//µ¥¼Û
-		for(int i=0;i<N;i++) {
-			singlePrice[i]=(double)sales[i]/(double)counts[i];
-		}
-		double t;
-		int pos[]=new int[N];
-		for(int i=0;i<N;i++) {
-			pos[i]=i;
-		}
-		for(int i=0;i<N-1;i++) {
-			int middle=0;
-			for(int j=i+1;j<N;j++) {
-				if(singlePrice[i]<singlePrice[j]) {
-					t=singlePrice[i];
-					singlePrice[i]=singlePrice[j];
-					singlePrice[j]=t;
-					middle=pos[i];
-					pos[i]=pos[j];
-					pos[j]=middle;
-				}
-			}
-		}
-		int sum=0;
-		for(int i=0;i<N;i++) {
-			list.add(pos[i]);
-			sum=sum+counts[pos[i]];
-			if(sum>=D) {
-				break;
-			}
-		}
-		double total=0;
-		int sum_=0;
-		if(sum==D) {
-			for(int i=0;i<list.size();i++) {
-				total=total+sales[pos[i]];
-			}
-		}else {
-			for(int i=0;i<list.size()-1;i++) {
-				total=total+sales[pos[i]];
-				sum_=sum_+counts[pos[i]];
-			}
-			total=total+(D-sum_)*singlePrice[list.size()-1];
-			System.out.print(df.format(total));
-		}
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        String s[]=br.readLine().split(" ");
+        int N=Integer.parseInt(s[0]);//æœˆé¥¼ç§ç±»æ•°
+        int D=Integer.parseInt(s[1]);//å¸‚åœºæœ€å¤§éœ€æ±‚é‡
+
+        String[] str1=br.readLine().split(" ");
+        String[] str2=br.readLine().split(" ");
+        float[] kucun=new float[N];
+        float[] price=new float[N];
+        float singlePrice[]=new float[N];
+        for(int i=0;i<N;i++){
+            kucun[i]=Float.parseFloat(str1[i]);
+            price[i]=Float.parseFloat(str2[i]);
+            singlePrice[i]=price[i]/kucun[i];
+        }
+
+        for(int i=0;i<N-1;i++){
+            for(int j=i;j<N;j++){
+                if(singlePrice[i]<singlePrice[j]){
+                    float temp=singlePrice[i];
+                    singlePrice[i]=singlePrice[j];
+                    singlePrice[j]=temp;
+                    temp=price[i];
+                    price[i]=price[j];
+                    price[j]=temp;
+                    temp=kucun[i];
+                    kucun[i]=kucun[j];
+                    kucun[j]=temp;
+                }
+            }
+        }
+        int totle=0;
+        float sumprice=0;
+        for(int i=0;i<N;i++){
+            if(D-totle>kucun[i]){
+                totle+=kucun[i];
+                sumprice+=price[i];
+            }else if(D-totle==kucun[i]){
+                sumprice+=price[i];
+                break;
+            }else{
+                sumprice+=singlePrice[i]*(D-totle);
+                break;
+            }
+        }
+        System.out.printf("%.2f",sumprice);
+    }
 }

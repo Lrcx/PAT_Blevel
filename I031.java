@@ -1,63 +1,52 @@
-package lowlevel;
+package levelB;
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class I031 {
-	public static void main(String[] args) {
-		Scanner s=new Scanner(System.in);
-		String n=s.nextLine();
-		ArrayList<Integer> list=new ArrayList<Integer>();
-//		{7£¬9£¬10£¬5£¬8£¬4£¬2£¬1£¬6£¬3£¬7£¬9£¬10£¬5£¬8£¬4£¬2}
-		list.add(7);list.add(9);list.add(10);list.add(5);list.add(8);list.add(4);list.add(2);list.add(1);list.add(6);
-		list.add(3);list.add(7);list.add(9);list.add(10);list.add(5);list.add(8);list.add(4);list.add(2);
-		String[] M= {"1", "0", "X", "9", "8", "7", "6", "5", "4", "3", "2"};
-		int count=0;
-		int count1=0;
-		ArrayList<String> list1=new ArrayList<String>();
-		int num=0;
-		String[] data=new String[Integer.valueOf(n)];
-		if(Integer.parseInt(n)!=0) {
-			for(int i=0;i<Integer.parseInt(n);i++) {
-				data[i]=s.nextLine();
-			}
-			for(int i=0;i<Integer.parseInt(n);i++) {
-				char c[]=data[i].toCharArray();
-				if(c.length!=18) {
-					count++;
-					list1.add(data[i]);
-				}else{
-					boolean flag=true;
-					for(int j=0;j<c.length-1;j++) {
-						
-						if(c[j]<48||c[j]>57) {
-							count++;
-							flag=false;
-							list1.add(data[i]);
-							break;
-						}else {
-							num=num+(c[j]-48)*list.get(j);
-						}
-					}
-					if(flag==true) {
-						int Z=num%11;
-						if(!M[Z].equals(String.valueOf(c[17]-48))) {
-							count++;
-							list1.add(data[i]);
-						}
-					}
-					num=0;
-				}
-			}
-			if(count==0) {
-				System.out.print("All passed");
-			}else {
-				for(int i=0;i<list1.size();i++) {
-					System.out.print(list1.get(i));
-					if(i!=list1.size()-1) {
-						System.out.println();
-					}
-				}
-			}
-		}
-	}
+    public static void main(String[] args) throws Exception {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        int N=Integer.parseInt(br.readLine());
+        String[] str=new String[N];
+        for(int i=0;i<N;i++){
+            str[i]=br.readLine();
+        }
+
+        int[] quan={7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2};
+        int count=0;
+
+        for(int i=0;i<N;i++){
+            boolean flag=true;
+            int sum=0;
+            char[] c=str[i].toCharArray();
+            for(int j=0;j<17;j++){
+                if(c[j]>='0'&&c[j]<='9'){
+                    sum+=(c[j]-'0')*quan[j];
+                }else{
+                    count++;
+                    System.out.println(str[i]);
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag){
+                int Z=sum%11;
+                switch (Z){
+                    case 0: if(c[17]!='1'){ count++;System.out.println(str[i]); } break;
+                    case 1: if(c[17]!='0'){ count++;System.out.println(str[i]); } break;
+                    case 2: if(c[17]!='X'){ count++;System.out.println(str[i]); } break;
+                    case 3: if(c[17]!='9'){ count++;System.out.println(str[i]); } break;
+                    case 4: if(c[17]!='8'){ count++;System.out.println(str[i]); } break;
+                    case 5: if(c[17]!='7'){ count++;System.out.println(str[i]); } break;
+                    case 6: if(c[17]!='6'){ count++;System.out.println(str[i]); } break;
+                    case 7: if(c[17]!='5'){ count++;System.out.println(str[i]); } break;
+                    case 8: if(c[17]!='4'){ count++;System.out.println(str[i]); } break;
+                    case 9: if(c[17]!='3'){ count++;System.out.println(str[i]); } break;
+                    case 10: if(c[17]!='2'){ count++;System.out.println(str[i]); } break;
+                }
+            }
+        }
+        if(count==0)
+            System.out.print("All passed");
+    }
 }

@@ -1,38 +1,52 @@
-package lowlevel;
+package levelB;
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class I039 {
-	public static void main(String[] args) {
-		Scanner s=new Scanner(System.in);
-		String str1=s.nextLine();
-		String str2=s.nextLine();
-		char tz[]=str1.toCharArray();//¶¨ÒåÌ¯Ö÷
-		char xh[]=str2.toCharArray();//¶¨ÒåÐ¡ºì
-		char c[]= {0,1,2,3,4,5,6,7,8,9,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r
-				,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,
-				W,X,Y,Z};
-		int count1[]= new int[62];
-		int count2[]=new int[62];
-		for(int i=0;i<count1.length;i++) {
-			count1[i]=0;
-			count2[i]=0;
-		}
-		
-		for(int i=0;i<c.length;i++) {
-			for(int j=0;j<tz.length;j++) {
-				if(c[i]==tz[j]) {
-					count1[i]++;
-				}
-			}
-		}
-		for(int i=0;i<c.length;i++) {
-			for(int j=0;j<xh.length;j++) {
-				if(c[i]==xh[j]) {
-					count2[i]++;
-				}
-			}
-		}
-		System.out.println(Arrays.toString(count2));
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        char[] tanzhu=br.readLine().toCharArray();
+        char[] xiaohong=br.readLine().toCharArray();
+
+        int[] count_tanzhu=new int[62];
+        int[] count_hong=new int[62];
+
+        //æ‘Šä¸»
+        for(int i=0;i<tanzhu.length;i++){
+            if(tanzhu[i]>='0'&&tanzhu[i]<='9')
+                count_tanzhu[tanzhu[i]-48]++;
+            else if(tanzhu[i]>='A'&&tanzhu[i]<='Z')
+                count_tanzhu[tanzhu[i]-55]++;
+            else
+                count_tanzhu[tanzhu[i]-61]++;
+        }
+
+        //å°çº¢
+        for(int i=0;i<xiaohong.length;i++){
+            if(xiaohong[i]>='0'&&xiaohong[i]<='9')
+                count_hong[xiaohong[i]-48]++;
+            else if(xiaohong[i]>='A'&&xiaohong[i]<='Z')
+                count_hong[xiaohong[i]-55]++;
+            else
+                count_hong[xiaohong[i]-61]++;
+        }
+
+        boolean flag=true;
+        int que=0;
+        for(int i=0;i<62;i++){
+            if(count_hong[i]!=0){
+                //å‘çŽ°æ‘Šä¸»çš„ä¸ªæ•°å°äºŽå°çº¢
+                if(count_hong[i]>count_tanzhu[i]){
+                    flag=false;
+                    que+=count_hong[i]-count_tanzhu[i];
+                }
+            }
+        }
+
+        if(flag){
+            System.out.print("Yes "+(tanzhu.length-xiaohong.length));
+        }else
+            System.out.print("No "+que);
+    }
 }

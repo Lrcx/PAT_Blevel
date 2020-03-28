@@ -1,226 +1,184 @@
-//³ÌĞòÓ¦¸ÃÊÇÃ»ÓĞ¶à´óÎÊÌâ£¬PATÈı¸öÔËĞĞ³¬Ê±£¬Å£¿ÍÍøÈ«²¿ÔËĞĞ³¬Ê±
-package lowlevel;
+package levelB;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
 
 public class I015 {
-	public static void main(String[] args) throws Exception {
-//		Scanner s=new Scanner(System.in);
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		String line_1=in.readLine();
-		int N=Integer.parseInt(line_1.split(" ")[0]);//¿¼Éú×ÜÊı                          ×¼¿¼Ö¤ºÅ µÂ·Ö ²Å·Ö
-		int L=Integer.parseInt(line_1.split(" ")[1]);//×îµÍ·ÖÊıÏß
-		int H=Integer.parseInt(line_1.split(" ")[2]);//ÓÅÏÈÂ¼È¡Ïß
-		String stu[]=new String[N];
-		ArrayList<String> list1=new ArrayList<String>();//²ÅµÂ¼æ±¸ >=H µÂ²Å×Ü·ÖÅÅĞò
-		ArrayList<String> list2=new ArrayList<String>();//µÂÊ¤²Å	µÂ>=H£¬µ«²Å<H
-		ArrayList<String> list3=new ArrayList<String>();//²ÅµÂ¼æÍö£¬µ«µÂÊ¤²Å µÂ²Å¾ù¡¶H£¬µ«µÂ¡·²Å
-		ArrayList<String> list4=new ArrayList<String>();//²ÅµÂ¼æÍö 
-		//ÊäÈëÊı¾İ
-		for(int i=0;i<N;i++) {
-			stu[i]=in.readLine();
-		}
-		//¶ÔµÂ²Å½øĞĞ·ÖÀà»®·Ö
-		for(int i=0;i<N;i++) {
-			stu[i].split(" ");
-			if(Integer.parseInt(stu[i].split(" ")[1])<L||Integer.parseInt(stu[i].split(" ")[2])<L) {
-				stu[i]="0";
-			}
-			if(stu[i]!="0") {
-				if(Integer.parseInt(stu[i].split(" ")[1])>=H&&Integer.parseInt(stu[i].split(" ")[2])>=H) {
-					list1.add(stu[i]);
-				}else if(Integer.parseInt(stu[i].split(" ")[1])>=H&&Integer.parseInt(stu[i].split(" ")[2])<H) {
-					list2.add(stu[i]);
-				}else if(Integer.parseInt(stu[i].split(" ")[1])<H) {
-					if(Integer.parseInt(stu[i].split(" ")[1])>=Integer.parseInt(stu[i].split(" ")[2])){
-						list3.add(stu[i]);
-					}else {
-						list4.add(stu[i]);
-					}
-				}
-			}
-		}
-//		for(int i=0;i<list1.size();i++) {
-//			System.out.println(list1.get(i));
-//		}
-//		System.out.println();
-//		for(int i=0;i<list2.size();i++) {
-//			System.out.println(list2.get(i));
-//		}
-//		System.out.println();
-//		for(int i=0;i<list3.size();i++) {
-//			System.out.println(list3.get(i));
-//		}
-//		System.out.println();
-//		for(int i=0;i<list4.size();i++) {
-//			System.out.println(list4.get(i));
-//		}
-		String a[]=new String[list1.size()];
-		String b[]=new String[list2.size()];
-		String c[]=new String[list3.size()];
-		String d[]=new String[list4.size()];
-		if(list1.size()>0) {
-			for(int i=0;i<list1.size();i++) {
-				a[i]=list1.get(i)+" "+(Integer.parseInt(list1.get(i).split(" ")[1])+
-						Integer.parseInt(list1.get(i).split(" ")[2]));
-			}
-		}
-		if(list2.size()>0) {
-			for(int i=0;i<list2.size();i++) {
-				b[i]=list2.get(i)+" "+(Integer.parseInt(list2.get(i).split(" ")[1])+
-						Integer.parseInt(list2.get(i).split(" ")[2]));
-			}
-		}
-		if(list3.size()>0) {
-			for(int i=0;i<list3.size();i++) {
-				c[i]=list3.get(i)+" "+(Integer.parseInt(list3.get(i).split(" ")[1])+
-						Integer.parseInt(list3.get(i).split(" ")[2]));
-			}
-		}
-		if(list4.size()>0) {
-			for(int i=0;i<list4.size();i++) {
-				d[i]=list4.get(i)+" "+(Integer.parseInt(list4.get(i).split(" ")[1])+
-						Integer.parseInt(list4.get(i).split(" ")[2]));
-			}
-		}
-		//¶Ôa[]½øĞĞÅÅĞò
-		for(int i=0;i<a.length-1;i++) {
-			String tmp="";
-			for(int j=i+1;j<a.length;j++) {
-				if(Integer.parseInt(a[i].split(" ")[3])<Integer.parseInt(a[j].split(" ")[3])) {
-					tmp=a[i];
-					a[i]=a[j];
-					a[j]=tmp;
-				}
-			}
-		}
-		for(int i=0;i<a.length-1;i++) {
-			String tmp="";
-			for(int j=i+1;j<a.length;j++) {
-				if(Integer.parseInt(a[i].split(" ")[3])==Integer.parseInt(a[j].split(" ")[3])) {
-					if(Integer.parseInt(a[i].split(" ")[1])<Integer.parseInt(a[j].split(" ")[1])) {
-						tmp=a[i];
-						a[i]=a[j];
-						a[j]=tmp;
-					}else if(Integer.parseInt(a[i].split(" ")[1])==Integer.parseInt(a[j].split(" ")[1])) {
-						if(Integer.parseInt(a[i].split(" ")[0])>Integer.parseInt(a[j].split(" ")[0])) {
-							tmp=a[i];
-							a[i]=a[j];
-							a[j]=tmp;
-						}
-					}
-				}
-			}
-		}
-		//¶Ôb[]½øĞĞÅÅĞò
-		for(int i=0;i<b.length-1;i++) {
-			String tmp="";
-			for(int j=i+1;j<b.length;j++) {
-				if(Integer.parseInt(b[i].split(" ")[3])<Integer.parseInt(b[j].split(" ")[3])) {
-					tmp=b[i];
-					b[i]=b[j];
-					b[j]=tmp;
-				}
-			}
-		}
-		for(int i=0;i<b.length-1;i++) {
-			String tmp="";
-			for(int j=i+1;j<b.length;j++) {
-				if(Integer.parseInt(b[i].split(" ")[3])==Integer.parseInt(b[j].split(" ")[3])) {
-					if(Integer.parseInt(b[i].split(" ")[1])<Integer.parseInt(b[j].split(" ")[1])) {
-						tmp=b[i];
-						b[i]=b[j];
-						b[j]=tmp;
-					}else if(Integer.parseInt(b[i].split(" ")[1])==Integer.parseInt(b[j].split(" ")[1])) {
-						if(Integer.parseInt(b[i].split(" ")[0])>Integer.parseInt(b[j].split(" ")[0])) {
-							tmp=b[i];
-							b[i]=b[j];
-							b[j]=tmp;
-						}
-					}
-				}
-			}
-		}
-		//¶Ôc½øĞĞÅÅĞò
-		for(int i=0;i<c.length-1;i++) {
-			String tmp="";
-			for(int j=i+1;j<c.length;j++) {
-				if(Integer.parseInt(c[i].split(" ")[3])<Integer.parseInt(c[j].split(" ")[3])) {
-					tmp=c[i];
-					c[i]=c[j];
-					c[j]=tmp;
-				}
-			}
-		}
-		for(int i=0;i<c.length-1;i++) {
-			String tmp="";
-			for(int j=i+1;j<c.length;j++) {
-				if(Integer.parseInt(c[i].split(" ")[3])==Integer.parseInt(c[j].split(" ")[3])) {
-					if(Integer.parseInt(c[i].split(" ")[1])<Integer.parseInt(c[j].split(" ")[1])) {
-						tmp=c[i];
-						c[i]=c[j];
-						c[j]=tmp;
-					}else if(Integer.parseInt(c[i].split(" ")[1])==Integer.parseInt(c[j].split(" ")[1])) {
-						if(Integer.parseInt(c[i].split(" ")[0])>Integer.parseInt(c[j].split(" ")[0])) {
-							tmp=c[i];
-							c[i]=c[j];
-							c[j]=tmp;
-						}
-					}
-				}
-			}
-		}
-		//¶Ôd½øĞĞÅÅĞò
-		for(int i=0;i<d.length-1;i++) {
-			String tmp="";
-			for(int j=i+1;j<d.length;j++) {
-				if(Integer.parseInt(d[i].split(" ")[3])<Integer.parseInt(d[j].split(" ")[3])) {
-					tmp=d[i];
-					d[i]=d[j];
-					d[j]=tmp;
-				}
-			}
-		}
-		for(int i=0;i<d.length-1;i++) {
-			String tmp="";
-			for(int j=i+1;j<d.length;j++) {
-				if(Integer.parseInt(d[i].split(" ")[3])==Integer.parseInt(d[j].split(" ")[3])) {
-					if(Integer.parseInt(d[i].split(" ")[1])<Integer.parseInt(d[j].split(" ")[1])) {
-						tmp=d[i];
-						d[i]=d[j];
-						d[j]=tmp;
-					}else if(Integer.parseInt(d[i].split(" ")[1])==Integer.parseInt(d[j].split(" ")[1])) {
-						if(Integer.parseInt(d[i].split(" ")[0])>Integer.parseInt(d[j].split(" ")[0])) {
-							tmp=d[i];
-							d[i]=d[j];
-							d[j]=tmp;
-						}
-					}
-				}
-			}
-		}
-		ArrayList<String> list=new ArrayList<String>();
-		for(int i=0;i<a.length;i++) {
-			list.add(a[i].split(" ")[0]+" "+a[i].split(" ")[1]+" "+a[i].split(" ")[2]);
-		}
-		for(int i=0;i<b.length;i++) {
-			list.add(b[i].split(" ")[0]+" "+b[i].split(" ")[1]+" "+b[i].split(" ")[2]);
-		}
-		for(int i=0;i<c.length;i++) {
-			list.add(c[i].split(" ")[0]+" "+c[i].split(" ")[1]+" "+c[i].split(" ")[2]);
-		}
-		for(int i=0;i<d.length;i++) {
-			list.add(d[i].split(" ")[0]+" "+d[i].split(" ")[1]+" "+d[i].split(" ")[2]);
-		}
-		System.out.println(list.size());
-		for(int i=0;i<list.size();i++) {
-			System.out.print(list.get(i));
-			if(i!=list.size()) {
-				System.out.println();
-			}
-		}
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        String str[]=br.readLine().split(" ");
+        int N=Integer.parseInt(str[0]);//å¤šå°‘å­¦ç”Ÿ
+        int L=Integer.parseInt(str[1]);//æœ€ä½åˆ†æ•°çº¿
+        int H=Integer.parseInt(str[2]);//ä¼˜å…ˆå½•å–çº¿
+        int[] id=new int[N];//å­˜æ”¾å­¦å·
+        int[] de=new int[N];//å¾·åˆ†
+        int[] cai=new int[N];//æ‰åˆ†
+        int[] sum=new int[N];//åˆ†æ•°å’Œ
+        int flag[]=new int[N];//æ ‡è®°æ•°ç»„
+        /*è¿™ä¸ªæ ‡è®°æ•°ç»„ï¼Œ0ä»£è¡¨æ·˜æ±°ï¼Œ1ä»£è¡¨æ‰å¾·å…¨å°½ï¼Œ2ä»£è¡¨å¾·èƒœæ‰ï¼Œ
+        3ä»£è¡¨å°šæœ‰å¾·èƒœæ‰ï¼Œ4ä»£è¡¨é™¤äº†0123çš„å‰©ä¸‹çš„*/
+
+        int temp1,temp2;//temp1ä»£è¡¨å½•å…¥çš„å¾·åˆ†ï¼Œtemp2ä»£è¡¨æ‰åˆ†
+        for(int i=0;i<N;i++){
+            str=br.readLine().split(" ");
+            id[i]=Integer.parseInt(str[0]);
+            temp1=Integer.parseInt(str[1]);
+            temp2=Integer.parseInt(str[2]);
+            if(temp1>=L&&temp2>=L){
+                if(temp1>=H&&temp2>=H){//å¾·æ‰åˆ†å‡å¤§äºH
+                    de[i]=temp1;
+                    cai[i]=temp2;
+                    flag[i]=1;    //ç½®ä¸º1
+                    sum[i]=temp1+temp2;
+                }else if(temp1>=H&&temp2<H){ //å¾·è¿‡çº¿æ‰ä¸è¿‡
+                    de[i]=temp1;
+                    cai[i]=temp2;
+                    flag[i]=2;//ç½®ä¸º2
+                    sum[i]=temp1+temp2;
+                }else if(temp1<H&&temp2<H&&temp1>=temp2){ //å°šæœ‰å¾·èƒœæ‰
+                    de[i]=temp1;
+                    cai[i]=temp2;
+                    flag[i]=3;
+                    sum[i]=temp1+temp2;
+                }else {             //å…¶ä»–
+                    de[i]=temp1;
+                    cai[i]=temp2;
+                    flag[i]=4;
+                    sum[i]=temp1+temp2;
+                }
+            }else{  //æ·˜æ±°
+                de[i]=temp1;
+                cai[i]=temp2;
+                flag[i]=0;
+            }
+        }
+
+        int temp;//ä¸­é—´æ•°ï¼Œäº¤æ¢æ•°ç»„å¯¹åº”ä½ç½®æ•°çš„æ—¶å€™ç”¨åˆ°
+        for(int i=0;i<N;i++){
+            for(int j=i;j<N;j++){
+                if(flag[i]==1&&flag[j]==1){//å¾·æ‰å…¨å°½æ’åº
+                    if(sum[i]<sum[j]){//æŒ‰å’Œé™åºæ’åº
+                        temp=sum[i];sum[i]=sum[j];sum[j]=temp;
+                        temp=id[i];id[i]=id[j];id[j]=temp;
+                        temp=de[i];de[i]=de[j];de[j]=temp;
+                        temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                    }else if(sum[i]==sum[j]){//å’Œç›¸åŒ
+                        if(de[i]<de[j]){//æŒ‰å¾·åˆ†é™åºæ’åº
+                            temp=id[i];id[i]=id[j];id[j]=temp;
+                            temp=de[i];de[i]=de[j];de[j]=temp;
+                            temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                        }else if(de[i]==de[j]){//å¾·ç›¸åŒæŒ‰åºå·å‡åºæ’åº
+                            if(id[i]>id[j]){
+                                temp=id[i];id[i]=id[j];id[j]=temp;
+                                temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        /*çœ‹æ‡‚äº†ä¸Šè¾¹é‚£ä¸ªï¼Œä¸‹é¢ä¸‰ä¸ªä¹Ÿå°±æ‡‚äº†ï¼Œåˆ†åˆ«æ˜¯å¯¹å‰©ä¸‹ä¸‰ç±»è¿›è¡Œæ’åº*/
+        for(int i=0;i<N;i++){
+            for(int j=i;j<N;j++){
+                if(flag[i]==2&&flag[j]==2){
+                    if(sum[i]<sum[j]){
+                        temp=sum[i];sum[i]=sum[j];sum[j]=temp;
+                        temp=id[i];id[i]=id[j];id[j]=temp;
+                        temp=de[i];de[i]=de[j];de[j]=temp;
+                        temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                    }else if(sum[i]==sum[j]){
+                        if(de[i]<de[j]){
+                            temp=id[i];id[i]=id[j];id[j]=temp;
+                            temp=de[i];de[i]=de[j];de[j]=temp;
+                            temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                        }else if(de[i]==de[j]){
+                            if(id[i]>id[j]){
+                                temp=id[i];id[i]=id[j];id[j]=temp;
+                                temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i=0;i<N;i++){
+            for(int j=i;j<N;j++){
+                if(flag[i]==3&&flag[j]==3){
+                    if(sum[i]<sum[j]){
+                        temp=sum[i];sum[i]=sum[j];sum[j]=temp;
+                        temp=id[i];id[i]=id[j];id[j]=temp;
+                        temp=de[i];de[i]=de[j];de[j]=temp;
+                        temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                    }else if(sum[i]==sum[j]){
+                        if(de[i]<de[j]){
+                            temp=id[i];id[i]=id[j];id[j]=temp;
+                            temp=de[i];de[i]=de[j];de[j]=temp;
+                            temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                        }else if(de[i]==de[j]){
+                            if(id[i]>id[j]){
+                                temp=id[i];id[i]=id[j];id[j]=temp;
+                                temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        for(int i=0;i<N;i++){
+            for(int j=i;j<N;j++){
+                if(flag[i]==4&&flag[j]==4){
+                    if(sum[i]<sum[j]){
+                        temp=sum[i];sum[i]=sum[j];sum[j]=temp;
+                        temp=id[i];id[i]=id[j];id[j]=temp;
+                        temp=de[i];de[i]=de[j];de[j]=temp;
+                        temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                    }else if(sum[i]==sum[j]){
+                        if(de[i]<de[j]){
+                            temp=id[i];id[i]=id[j];id[j]=temp;
+                            temp=de[i];de[i]=de[j];de[j]=temp;
+                            temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                        }else if(de[i]==de[j]){
+                            if(id[i]>id[j]){
+                                temp=id[i];id[i]=id[j];id[j]=temp;
+                                temp=cai[i];cai[i]=cai[j];cai[j]=temp;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //è®°å½•æ€»å…±è¦è¾“å‡ºçš„ä¸ªæ•°
+        int count=0;
+        for(int i=0;i<N;i++){
+            if(flag[i]!=0){
+                count++;
+            }
+        }
+        System.out.println(count);
+
+        //è¾“å‡ºæœ€åç»“æœ
+        for(int i=0;i<N;i++){
+            if(flag[i]==1){
+                System.out.println(id[i]+" "+de[i]+" "+cai[i]);
+            }
+        }
+        for(int i=0;i<N;i++){
+            if(flag[i]==2){
+                System.out.println(id[i]+" "+de[i]+" "+cai[i]);
+            }
+        }
+        for(int i=0;i<N;i++){
+            if(flag[i]==3){
+                System.out.println(id[i]+" "+de[i]+" "+cai[i]);
+            }
+        }
+        for(int i=0;i<N;i++){
+            if(flag[i]==4){
+                System.out.println(id[i]+" "+de[i]+" "+cai[i]);
+            }
+        }
+    }
 }

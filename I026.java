@@ -1,32 +1,17 @@
-package lowlevel;
+package levelB;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class I026 {
-	public static void main(String[] args) {
-		Scanner s=new Scanner(System.in);
-		double time_begin=s.nextDouble();
-		double time_over=s.nextDouble();
-		double cha=Math.round((time_over-time_begin)/100);
-//		System.out.println(cha);
-		int hour=(int)cha/3600;
-		int minute=((int)cha-hour*3600)/60;
-		int second=(int)cha-hour*3600-minute*60;
-		if(hour<=9) {
-			System.out.print("0"+hour+":");
-		}else {
-			System.out.print(hour+":");
-		}
-		if(minute<=9) {
-			System.out.print("0"+minute+":");
-		}else {
-			System.out.print(minute+":");
-		}
-		if(second<=9) {
-			System.out.print("0"+second);
-		}else {
-			System.out.print(second);
-		}
-		
-	}
+    public static void main(String[] args) {
+        Scanner s=new Scanner(System.in);
+        int c1=s.nextInt();
+        int c2=s.nextInt();
+        double c=Math.round((c2-c1)*1.0/100);
+        int hour=(int)c/3600;
+        int minute=(int)c%3600/60;
+        int second=(int)c%3600%60;
+        System.out.printf("%02d:%02d:%02d",hour,minute,second);
+    }
 }
+

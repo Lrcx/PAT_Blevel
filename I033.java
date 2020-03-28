@@ -1,53 +1,51 @@
-package lowlevel;
+package levelB;
 
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 public class I033 {
-	public static void main(String[] args) {
-		Scanner s=new Scanner(System.in);
-		String badkey=s.nextLine();
-		String word=s.nextLine();
-		char[] b=badkey.toCharArray();
-		char[] w=word.toCharArray();
-		boolean flag=true;
-		for(int i=0;i<b.length;i++) {
-			
-			if(b[i]==','||b[i]=='.'||b[i]=='-'||b[i]=='+') {
-				flag=false;
-				break;
-			}
-		}
-		if(flag==true) {
-			for(int i=0;i<b.length;i++) {
-				for(int j=0;j<w.length;j++) {
-					if((w[j]>=48||w[j]<=57)&&w[j]==b[i]) {
-						w[j]='%';
-					}else if(((w[j]>=65&&w[j]<=90)||(w[j]>=97&&w[j]<=122))&&(w[j]==b[i]||w[j]==b[j]+32)){
-						w[j]='%';
-					}else if(w[j]=='_'&&w[j]==b[i]){
-						w[j]='%';
-					}
-				}
-			}
-		}else {
-			for(int i=0;i<b.length;i++) {
-				for(int j=0;j<w.length;j++) {
-					if((w[j]>=48||w[j]<=57)&&w[j]==b[i]) {
-						w[j]='%';
-					}else if((w[j]>=97&&w[j]<=122)&&(w[j]==b[i]+32)) {
-						w[j]='%';
-					}else if(w[j]=='_'&&w[j]==b[i]){
-						w[j]='%';
-					}else if(w[j]>=65&&w[j]<=90) {
-						w[j]='%';
-					}
-				}
-			}
-		}
-		for(int i=0;i<w.length;i++) {
-			if(w[i]!='%') {
-				System.out.print(w[i]);
-			}
-		}
-	}
+    public static void main(String[] args) throws Exception{
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        boolean flag=true;
+
+        String first=br.readLine();
+        if(first.contains(",")||first.contains(".")||first.contains("-")||first.contains("+"))
+            flag=false;
+        char[] badkey=first.toCharArray();
+        char[] word=br.readLine().toCharArray();
+
+        if(flag) {
+            for(int i=0;i<badkey.length;i++) {
+                for(int j=0;j<word.length;j++) {
+                    if(word[j]==badkey[i]&&(word[j]>=48||word[j]<=57)) {
+                        word[j]='%';
+                    }else if((word[j]==badkey[i]||word[j]==badkey[j]+32)&&((word[j]>=65&&word[j]<=90)||(word[j]>=97&&word[j]<=122))){
+                        word[j]='%';
+                    }else if(word[j]=='_'&&word[j]==badkey[i]){
+                        word[j]='%';
+                    }
+                }
+            }
+        }else {
+            for(int i=0;i<badkey.length;i++) {
+                for(int j=0;j<word.length;j++) {
+                    if((word[j]>=48||word[j]<=57)&&word[j]==badkey[i]) {
+                        word[j]='%';
+                    }else if((word[j]>=97&&word[j]<=122)&&(word[j]==badkey[i]+32)) {
+                        word[j]='%';
+                    }else if(word[j]=='_'&&word[j]==badkey[i]){
+                        word[j]='%';
+                    }else if(word[j]>=65&&word[j]<=90) {
+                        word[j]='%';
+                    }
+                }
+            }
+        }
+        for(int i=0;i<word.length;i++) {
+            if(word[i]!='%') {
+                System.out.print(word[i]);
+            }
+        }
+    }
 }
+
